@@ -1,3 +1,4 @@
+import 'package:flostr/views/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -7,7 +8,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -55,7 +55,13 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 32),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const HomePage(),
+                  ),
+                );
+              },
               child: const Text('Login'),
             ),
           ],
@@ -65,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
         onPressed: () {},
         label: const Text('Generate New Key'),
         icon: const Icon(Icons.key),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
