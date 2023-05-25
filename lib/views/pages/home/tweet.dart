@@ -34,9 +34,9 @@ class TweetWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(15)),
-          color: Colors.black,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(15)),
+          color: Theme.of(context).colorScheme.secondary,
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
@@ -47,24 +47,26 @@ class TweetWidget extends StatelessWidget {
                 width: 46,
                 height: 46,
                 margin: const EdgeInsets.all(10.0),
-                // child: InkWell(
-                //   child: ClipOval(
-                //     child: Container(
-                //       decoration: BoxDecoration(
-                //         color: Color(setColor()),
-                //       ),
-                //       child: Image.network('$avatarUrl$pubkey.png?$imagesize',
-                //           fit: BoxFit.contain,
-                //           errorBuilder: (context, error, stackTrace) {
-                //         debugPrint(error.toString());
-                //         return const SizedBox.shrink();
-                //       }),
-                //     ),
-                //   ),
-                //   onTap: () {
-                //     displaySnackBar(context, "Soon In sha'Allah");
-                //   },
-                // ),
+                child: InkWell(
+                  child: ClipOval(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(setColor()),
+                      ),
+                      child: Image.network(
+                        avatar,
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) {
+                          debugPrint(error.toString());
+                          return const SizedBox.shrink();
+                        },
+                      ),
+                    ),
+                  ),
+                  onTap: () {
+                    print('pubkey: $pubkey');
+                  },
+                ),
               ),
               Expanded(
                 child: Column(
