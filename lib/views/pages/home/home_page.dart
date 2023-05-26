@@ -1,3 +1,4 @@
+import 'package:flostr/views/pages/home/send_message.dart';
 import 'package:flostr/views/pages/home/the_wall.dart';
 import 'package:flostr/views/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
@@ -26,11 +27,20 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-      body: TheWallWidget(
-        channel: WebSocketChannel.connect(
+      body: Builder(builder: (context) {
+        final ws = WebSocketChannel.connect(
           Uri.parse('wss://relay.damus.io'),
-        ),
-      ),
+        );
+
+        return Column(
+          children: [
+            Expanded(
+              child: TheWallWidget(ws),
+            ),
+            SendMessage(ws),
+          ],
+        );
+      }),
     );
   }
 }

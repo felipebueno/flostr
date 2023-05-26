@@ -23,10 +23,7 @@ bool isSpam(Event event) {
 class TheWallWidget extends StatefulWidget {
   final WebSocketChannel channel;
 
-  const TheWallWidget({
-    super.key,
-    required this.channel,
-  });
+  const TheWallWidget(this.channel, {super.key});
 
   @override
   TheWallState createState() => TheWallState();
@@ -43,12 +40,15 @@ class TheWallState extends State<TheWallWidget> {
     spams.clear();
     debugPrint('Connected to WebSocket');
     widget.channel.sink.add(
-      Request(generate64RandomHexChars(), [
-        Filter(
-          kinds: [1],
-          since: currentUnixTimestampSeconds() - 86400,
-        )
-      ]).serialize(),
+      Request(
+        generate64RandomHexChars(),
+        [
+          Filter(
+            kinds: [1],
+            since: currentUnixTimestampSeconds() - 86400,
+          )
+        ],
+      ).serialize(),
     );
   }
 
@@ -62,51 +62,44 @@ class TheWallState extends State<TheWallWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: StreamBuilder(
-            stream: widget.channel.stream,
-            builder: (context, snapshot) {
-              debugPrint(snapshot.connectionState.name);
-              debugPrint(snapshot.data);
-              if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              }
-              if (!snapshot.hasData) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              Message msg = Message.deserialize(snapshot.data);
-              if (msg.type == "EVENT") {
-                Event event = msg.message;
-                if (!isSpam(event)) {
-                  events.add(event);
-                  events.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-                }
-              }
-              debugPrint(
-                'events loaded: ${events.length} spams filtered: ${spams.length}',
-              );
+    return StreamBuilder(
+      stream: widget.channel.stream,
+      builder: (context, snapshot) {
+        debugPrint(snapshot.connectionState.name);
+        debugPrint(snapshot.data);
+        if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        }
+        if (!snapshot.hasData) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        Message msg = Message.deserialize(snapshot.data);
+        if (msg.type == "EVENT") {
+          Event event = msg.message;
+          if (!isSpam(event)) {
+            events.add(event);
+            events.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+          }
+        }
+        debugPrint(
+          'events loaded: ${events.length} spams filtered: ${spams.length}',
+        );
 
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: events.length,
-                itemBuilder: (context, index) {
-                  return TweetWidget(
-                    avatar: '',
-                    pubkey: events[index].pubkey,
-                    timestamp: events[index].createdAt,
-                    text: events[index].content,
-                  );
-                },
-              );
-            },
-          ),
-        ),
-      ),
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: events.length,
+          itemBuilder: (context, index) {
+            return TweetWidget(
+              avatar: '',
+              pubkey: events[index].pubkey,
+              timestamp: events[index].createdAt,
+              text: events[index].content,
+            );
+          },
+        );
+      },
     );
   }
 }

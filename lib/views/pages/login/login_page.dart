@@ -28,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
             TextField(
               controller: _controller,
               decoration: const InputDecoration(
-                // border: OutlineInputBorder(),
+                border: OutlineInputBorder(),
                 labelText: 'Private Key',
                 icon: Icon(Icons.key_outlined),
               ),
