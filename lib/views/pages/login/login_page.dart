@@ -1,6 +1,7 @@
 import 'package:flostr/views/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:nostr/nostr.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -57,7 +58,12 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          final k = Keychain.generate();
+          setState(() {
+            _controller.text = k.private;
+          });
+        },
         label: const Text('Generate New Key'),
         icon: const Icon(Icons.key),
       ),
