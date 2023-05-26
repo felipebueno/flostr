@@ -11,7 +11,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: TheWallWidget(
-        channel: WebSocketChannel.connect(Uri.parse('wss://relay.damus.io')),
+        channel: WebSocketChannel.connect(
+          Uri.parse('wss://relay.damus.io'),
+        ),
       ),
     );
   }

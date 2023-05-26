@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  bech32:
+    dependency: transitive
+    description:
+      name: bech32
+      sha256: "156cbace936f7720c79a79d16a03efad343b1ef17106716e04b8b8e39f99f7f7"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.2"
   bip340:
     dependency: transitive
     description:
@@ -188,10 +196,10 @@ packages:
     dependency: "direct main"
     description:
       name: nostr
-      sha256: eed2b5f6ac1c20bbb6b3acfac917f1d93d95c231cea9bc985b7f72eed558f936
+      sha256: "7f6083d67098a3d6ee888002c4371c3c4583d125f17087f07c769e6cb2c4a63a"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.4"
+    version: "1.4.0"
   path:
     dependency: transitive
     description:
