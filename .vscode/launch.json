@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "flostr",
+            "name": "Flostr",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "flostr (profile mode)",
+            "name": "Flostr (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "flostr (release mode)",
+            "name": "Flostr (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
