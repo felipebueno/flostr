@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class TweetWidget extends StatelessWidget {
+class TweetCard extends StatelessWidget {
   final String avatar;
   final String pubkey;
   final int timestamp;
   final String text;
 
-  const TweetWidget({
+  const TweetCard({
     super.key,
     required this.avatar,
     required this.pubkey,
@@ -53,14 +53,14 @@ class TweetWidget extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: Color(setColor()),
                       ),
-                      child: Image.network(
-                        avatar,
-                        fit: BoxFit.contain,
-                        errorBuilder: (context, error, stackTrace) {
-                          debugPrint(error.toString());
-                          return const SizedBox.shrink();
-                        },
-                      ),
+                      // child: Image.network(
+                      //   avatar,
+                      //   fit: BoxFit.contain,
+                      //   errorBuilder: (context, error, stackTrace) {
+                      //     debugPrint(error.toString());
+                      //     return const SizedBox.shrink();
+                      //   },
+                      // ),
                     ),
                   ),
                   onTap: () {

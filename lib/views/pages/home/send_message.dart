@@ -15,6 +15,13 @@ class SendMessage extends StatefulWidget {
 class _SendMessageState extends State<SendMessage> {
   final _controller = TextEditingController();
 
+  @override
+  void dispose() {
+    super.dispose();
+    widget.channel.sink.close();
+    _controller.dispose();
+  }
+
   Future<void> _sendMessage(String text) async {
     final pk = await const FlutterSecureStorage().read(key: 'private-key');
 

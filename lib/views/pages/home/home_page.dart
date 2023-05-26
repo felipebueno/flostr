@@ -1,5 +1,5 @@
 import 'package:flostr/views/pages/home/send_message.dart';
-import 'package:flostr/views/pages/home/the_wall.dart';
+import 'package:flostr/views/pages/home/tweet_wall.dart';
 import 'package:flostr/views/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
         return Column(
           children: [
             Expanded(
-              child: TheWallWidget(ws),
+              child: TweetWall(ws),
             ),
             SendMessage(ws),
           ],

@@ -2,7 +2,7 @@ import 'dart:collection';
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
-import 'package:flostr/views/pages/home/tweet.dart';
+import 'package:flostr/views/pages/home/tweet_card.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr/nostr.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -20,21 +20,19 @@ bool isSpam(Event event) {
   return false;
 }
 
-class TheWallWidget extends StatefulWidget {
+class TweetWall extends StatefulWidget {
   final WebSocketChannel channel;
 
-  const TheWallWidget(this.channel, {super.key});
+  const TweetWall(this.channel, {super.key});
 
   @override
   TheWallState createState() => TheWallState();
 }
 
-class TheWallState extends State<TheWallWidget> {
-  final List<Event> events = [];
+class TheWallState extends State<TweetWall> {
+  final List<Event> _events = [];
 
   @override
-  @protected
-  @mustCallSuper
   void initState() {
     super.initState();
     spams.clear();
@@ -53,8 +51,6 @@ class TheWallState extends State<TheWallWidget> {
   }
 
   @override
-  @protected
-  @mustCallSuper
   void dispose() {
     super.dispose();
     widget.channel.sink.close();
@@ -67,35 +63,37 @@ class TheWallState extends State<TheWallWidget> {
       builder: (context, snapshot) {
         debugPrint(snapshot.connectionState.name);
         debugPrint(snapshot.data);
+
         if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         }
+
         if (!snapshot.hasData) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
+
         Message msg = Message.deserialize(snapshot.data);
         if (msg.type == "EVENT") {
           Event event = msg.message;
           if (!isSpam(event)) {
-            events.add(event);
-            events.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+            _events.add(event);
+            _events.sort((a, b) => b.createdAt.compareTo(a.createdAt));
           }
         }
-        debugPrint(
-          'events loaded: ${events.length} spams filtered: ${spams.length}',
-        );
+        // debugPrint(
+        //   'events loaded: ${_events.length} spams filtered: ${spams.length}',
+        // );
 
         return ListView.builder(
+          reverse: true,
           shrinkWrap: true,
-          itemCount: events.length,
+          itemCount: _events.length,
           itemBuilder: (context, index) {
-            return TweetWidget(
+            return TweetCard(
               avatar: '',
-              pubkey: events[index].pubkey,
-              timestamp: events[index].createdAt,
-              text: events[index].content,
+              pubkey: _events[index].pubkey,
+              timestamp: _events[index].createdAt,
+              text: _events[index].content,
             );
           },
         );
