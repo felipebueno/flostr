@@ -41,7 +41,15 @@ class BaseScaffold extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary,
               ),
-              child: const Text('Flostr'),
+              child: Center(
+                child: Text(
+                  'Flostr',
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
+              ),
             ),
             ListTile(
               selected: route == ChatsPage.route,
