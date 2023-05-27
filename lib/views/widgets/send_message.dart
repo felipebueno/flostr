@@ -53,6 +53,7 @@ class _SendMessageState extends State<SendMessage> {
     return Card(
       child: TextField(
         controller: _controller,
+        onSubmitted: _sendMessage,
         onChanged: (_) {
           setState(() {});
         },

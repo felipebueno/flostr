@@ -6,7 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
 
-  static const routeName = '/';
+  static const route = '/';
 
   @override
   State<SplashPage> createState() => _SplashPageState();
@@ -18,13 +18,13 @@ class _SplashPageState extends State<SplashPage> {
 
     if (key == null) {
       // TODO: Don't use build context across async gaps
-      Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
+      Navigator.of(context).pushReplacementNamed(LoginPage.route);
 
       return;
     }
 
     // TODO: Check if private key is valid
-    Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+    Navigator.of(context).pushReplacementNamed(HomePage.route);
   }
 
   @override

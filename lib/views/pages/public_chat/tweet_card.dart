@@ -14,20 +14,16 @@ class TweetCard extends StatelessWidget {
     required this.text,
   });
 
-  String formatDate(int secondsUnixTimestamp) {
-    var date = DateTime.fromMillisecondsSinceEpoch(secondsUnixTimestamp * 1000,
-            isUtc: true)
-        .toLocal()
-        .toString();
+  String _formatDate(int secondsUnixTimestamp) {
+    var date = DateTime.fromMillisecondsSinceEpoch(
+      secondsUnixTimestamp * 1000,
+      isUtc: true,
+    ).toLocal().toString();
+
     return date.substring(0, date.length - 4);
   }
 
-  int setColor() {
-    var pubKeyChars = pubkey.substring(0, 6);
-    var color = '0xff';
-    var result = '$color$pubKeyChars';
-    return int.parse(result);
-  }
+  int _getColor() => int.parse('0XFF${pubkey.substring(0, 6)}');
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +47,7 @@ class TweetCard extends StatelessWidget {
                   child: ClipOval(
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Color(setColor()),
+                        color: Color(_getColor()),
                       ),
                       // child: Image.network(
                       //   avatar,
@@ -64,7 +60,7 @@ class TweetCard extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    print('pubkey: $pubkey');
+                    // print('pubkey: $pubkey');
                   },
                 ),
               ),
@@ -84,16 +80,16 @@ class TweetCard extends StatelessWidget {
                                 child: Text(
                                   pubkey.substring(0, 8),
                                 ),
-                                // onTap: () {
-                                //   Clipboard.setData(
-                                //       ClipboardData(text: pubkey));
-                                //   displaySnackBar(
-                                //       context, 'Copied to clipboard: $pubkey');
-                                // },
+                                onTap: () {
+                                  //   Clipboard.setData(
+                                  //       ClipboardData(text: pubkey));
+                                  //   displaySnackBar(
+                                  //       context, 'Copied to clipboard: $pubkey');
+                                },
                               ),
                             ),
                             Text(
-                              formatDate(timestamp),
+                              _formatDate(timestamp),
                               style: const TextStyle(
                                 color: Colors.white70,
                               ),
@@ -106,12 +102,7 @@ class TweetCard extends StatelessWidget {
                             size: 14.0,
                             color: Colors.white70,
                           ),
-                          onPressed: () {
-                            // displaySnackBar(
-                            //   context,
-                            //   "I'm useless for the moment",
-                            // );
-                          },
+                          onPressed: () {},
                         ),
                       ],
                     ),

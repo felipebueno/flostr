@@ -6,7 +6,7 @@ import 'package:nostr/nostr.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
-  static const routeName = '/login';
+  static const route = '/login';
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                 );
 
                 // TODO: Don't use build context across async gaps
-                Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+                Navigator.of(context).pushReplacementNamed(HomePage.route);
               },
               child: const Text('Login'),
             ),

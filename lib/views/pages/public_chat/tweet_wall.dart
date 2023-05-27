@@ -2,7 +2,7 @@ import 'dart:collection';
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
-import 'package:flostr/views/pages/home/tweet_card.dart';
+import 'package:flostr/views/pages/public_chat/tweet_card.dart';
 import 'package:flutter/material.dart';
 import 'package:nostr/nostr.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -17,6 +17,7 @@ bool isSpam(Event event) {
     return true;
   }
   spams.add(hash);
+
   return false;
 }
 
