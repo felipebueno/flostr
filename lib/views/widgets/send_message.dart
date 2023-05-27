@@ -1,3 +1,4 @@
+import 'package:flostr/utils/alerts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:nostr/nostr.dart';
@@ -26,8 +27,7 @@ class _SendMessageState extends State<SendMessage> {
     final pk = await const FlutterSecureStorage().read(key: 'private-key');
 
     if (pk == null) {
-      // TODO: Show error alert
-      debugPrint('No private key found');
+      errorSnack('No private key found');
 
       return;
     }

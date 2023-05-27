@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flostr/data/models/profile.dart';
+import 'package:flostr/utils/alerts.dart';
 import 'package:flutter/material.dart';
 
 class ChatItem extends StatelessWidget {
@@ -11,13 +12,7 @@ class ChatItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        final snackBar = SnackBar(
-          content: Text(profile.toString()),
-        );
-
-        final messenger = ScaffoldMessenger.of(context);
-        messenger.hideCurrentSnackBar();
-        messenger.showSnackBar(snackBar);
+        infoSnack(profile.toString());
       },
       leading: CircleAvatar(
         backgroundColor: Color(

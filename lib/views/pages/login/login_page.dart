@@ -1,5 +1,9 @@
+import 'package:flostr/utils/alerts.dart';
+import 'package:flostr/utils/consts.dart';
+import 'package:flostr/utils/nav.dart';
 import 'package:flostr/views/pages/chats/chats_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:nostr/nostr.dart';
 
@@ -13,7 +17,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _controller = TextEditingController();
+  final _privkeyController = TextEditingController();
+  final _pubkeyController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,34 +32,56 @@ class _LoginPageState extends State<LoginPage> {
             const FlutterLogo(size: 160, style: FlutterLogoStyle.stacked),
             const SizedBox(height: 32),
             TextField(
-              controller: _controller,
+              controller: _privkeyController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Private Key',
-                icon: Icon(Icons.key_outlined),
+                icon: Icon(Icons.close),
+              ),
+            ),
+            const SizedBox(height: 16),
+            InkWell(
+              onTap: () {
+                Clipboard.setData(ClipboardData(text: _pubkeyController.text));
+
+                infoSnack('Public key copied to clipboard');
+              },
+              child: TextField(
+                controller: _pubkeyController,
+                enabled: false,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Public Key',
+                  icon: Icon(Icons.key_outlined),
+                ),
               ),
             ),
             const SizedBox(height: 32),
-            ElevatedButton(
+            ElevatedButton.icon(
               onPressed: () async {
-                final pk = _controller.text;
+                final pk = _privkeyController.text;
 
                 if (pk.isEmpty) {
                   return;
                 }
 
-                // TODO: Check if private key is valid before saving it
+                // TODO: Validate keys before saving
 
                 await const FlutterSecureStorage().write(
-                  key: 'private-key',
+                  key: privKey,
                   value: pk,
                 );
+                await const FlutterSecureStorage().write(
+                  key: pubKey,
+                  value: _pubkeyController.text,
+                );
 
-                // TODO: Don't use build context across async gaps
-                Navigator.of(context).pushReplacementNamed(ChatsPage.route);
+                pushReplacementNamed(ChatsPage.route);
               },
-              child: const Text('Login'),
+              icon: const Icon(Icons.login),
+              label: const Text('Login'),
             ),
+            const Text('relay.damus.io', style: TextStyle(fontSize: 10)),
           ],
         ),
       ),
@@ -61,7 +89,8 @@ class _LoginPageState extends State<LoginPage> {
         onPressed: () {
           final k = Keychain.generate();
           setState(() {
-            _controller.text = k.private;
+            _privkeyController.text = k.private;
+            _pubkeyController.text = k.public;
           });
         },
         label: const Text('Generate New Key'),

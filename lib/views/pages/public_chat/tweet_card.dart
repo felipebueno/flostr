@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flostr/utils/alerts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TweetCard extends StatelessWidget {
   final String avatar;
@@ -23,8 +25,6 @@ class TweetCard extends StatelessWidget {
 
     return date.substring(0, date.length - 4);
   }
-
-  int _getColor() => int.parse('0XFF${pubkey.substring(0, 6)}');
 
   @override
   Widget build(BuildContext context) {
@@ -73,10 +73,10 @@ class TweetCard extends StatelessWidget {
                                   pubkey.substring(0, 8),
                                 ),
                                 onTap: () {
-                                  //   Clipboard.setData(
-                                  //       ClipboardData(text: pubkey));
-                                  //   displaySnackBar(
-                                  //       context, 'Copied to clipboard: $pubkey');
+                                  Clipboard.setData(
+                                    ClipboardData(text: pubkey),
+                                  );
+                                  infoSnack('Copied to clipboard: $pubkey');
                                 },
                               ),
                             ),

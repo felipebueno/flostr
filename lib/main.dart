@@ -7,11 +7,13 @@ import 'package:flutter/material.dart';
 import 'views/pages/settings/settings_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const FlostrApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class FlostrApp extends StatelessWidget {
+  const FlostrApp({super.key});
+
+  static final navigatorKey = GlobalKey<NavigatorState>();
 
   Widget _route(String? name) => switch (name) {
         SplashPage.route => const SplashPage(),
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flostr',
+      navigatorKey: navigatorKey,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,

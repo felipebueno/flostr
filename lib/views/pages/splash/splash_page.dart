@@ -1,3 +1,4 @@
+import 'package:flostr/utils/nav.dart';
 import 'package:flostr/views/pages/chats/chats_page.dart';
 import 'package:flostr/views/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
@@ -17,14 +18,12 @@ class _SplashPageState extends State<SplashPage> {
     String? key = await const FlutterSecureStorage().read(key: 'private-key');
 
     if (key == null) {
-      // TODO: Don't use build context across async gaps
-      Navigator.of(context).pushReplacementNamed(LoginPage.route);
+      pushReplacementNamed(LoginPage.route);
 
       return;
     }
 
-    // TODO: Check if private key is valid
-    Navigator.of(context).pushReplacementNamed(ChatsPage.route);
+    pushReplacementNamed(ChatsPage.route);
   }
 
   @override

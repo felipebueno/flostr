@@ -1,3 +1,4 @@
+import 'package:flostr/utils/nav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -47,8 +48,7 @@ class BaseScaffold extends StatelessWidget {
               leading: const Icon(Icons.chat),
               title: const Text('Chats'),
               onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed(ChatsPage.route);
+                popAndPushNamed(ChatsPage.route);
               },
             ),
             ListTile(
@@ -56,16 +56,14 @@ class BaseScaffold extends StatelessWidget {
               leading: const Icon(Icons.people),
               title: const Text('Pulic Wall'),
               onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed(PublicChatPage.route);
+                popAndPushNamed(PublicChatPage.route);
               },
             ),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
               onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed(SettingsPage.route);
+                popAndPushNamed(SettingsPage.route);
               },
             ),
             ListTile(
@@ -73,8 +71,7 @@ class BaseScaffold extends StatelessWidget {
               title: const Text('Logout'),
               onTap: () async {
                 await const FlutterSecureStorage().deleteAll();
-                // TODO: Don't use build context across async gaps
-                Navigator.of(context).pushReplacementNamed(LoginPage.route);
+                pushReplacementNamed(LoginPage.route);
               },
             ),
           ],
