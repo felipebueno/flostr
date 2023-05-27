@@ -5,10 +5,23 @@ import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 // TODO: Delete this page before publishing
-class PublicChatPage extends StatelessWidget {
+class PublicChatPage extends StatefulWidget {
   const PublicChatPage({super.key});
 
   static const route = '/public-chat';
+
+  @override
+  State<PublicChatPage> createState() => _PublicChatPageState();
+}
+
+class _PublicChatPageState extends State<PublicChatPage> {
+  final channel = WebSocketChannel.connect(Uri.parse('wss://relay.damus.io'));
+
+  @override
+  void dispose() {
+    channel.sink.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,14 +29,10 @@ class PublicChatPage extends StatelessWidget {
       title: 'The Wall',
       body: Builder(
         builder: (context) {
-          final ws = WebSocketChannel.connect(
-            Uri.parse('wss://relay.damus.io'),
-          );
-
           return Column(
             children: [
-              Expanded(child: TweetWall(ws)),
-              SendMessage(ws),
+              Expanded(child: TweetWall(channel)),
+              SendMessage(channel),
             ],
           );
         },

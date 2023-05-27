@@ -7,20 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:nostr/nostr.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
-var spams = HashSet<String>();
-
-bool isSpam(Event event) {
-  var toHash = utf8.encode(event.content);
-  String hash = sha256.convert(toHash).toString();
-  if (spams.contains(hash)) {
-    debugPrint("${event.id} is a filtered spam");
-    return true;
-  }
-  spams.add(hash);
-
-  return false;
-}
-
 class TweetWall extends StatefulWidget {
   final WebSocketChannel channel;
 
@@ -32,29 +18,34 @@ class TweetWall extends StatefulWidget {
 
 class TheWallState extends State<TweetWall> {
   final List<Event> _events = [];
+  final _spams = HashSet<String>();
+
+  bool _isSpam(Event event) {
+    var toHash = utf8.encode(event.content);
+    String hash = sha256.convert(toHash).toString();
+    if (_spams.contains(hash)) {
+      debugPrint("${event.id} is a filtered spam");
+      return true;
+    }
+    _spams.add(hash);
+
+    return false;
+  }
 
   @override
   void initState() {
     super.initState();
-    spams.clear();
-    debugPrint('Connected to WebSocket');
     widget.channel.sink.add(
       Request(
         generate64RandomHexChars(),
         [
           Filter(
-            kinds: [1],
+            kinds: [3],
             since: currentUnixTimestampSeconds() - 86400,
           )
         ],
       ).serialize(),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    widget.channel.sink.close();
   }
 
   @override
@@ -77,7 +68,7 @@ class TheWallState extends State<TweetWall> {
           Message msg = Message.deserialize(snapshot.data);
           if (msg.type == "EVENT") {
             Event event = msg.message;
-            if (!isSpam(event)) {
+            if (!_isSpam(event)) {
               _events.add(event);
               _events.sort((a, b) => b.createdAt.compareTo(a.createdAt));
             }
