@@ -1,4 +1,4 @@
-import 'package:flostr/views/pages/home/home_page.dart';
+import 'package:flostr/views/pages/chats/chats_page.dart';
 import 'package:flostr/views/pages/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -24,7 +24,7 @@ class _SplashPageState extends State<SplashPage> {
     }
 
     // TODO: Check if private key is valid
-    Navigator.of(context).pushReplacementNamed(HomePage.route);
+    Navigator.of(context).pushReplacementNamed(ChatsPage.route);
   }
 
   @override

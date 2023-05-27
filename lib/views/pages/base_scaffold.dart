@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import 'home/home_page.dart';
+import 'chats/chats_page.dart';
 import 'login/login_page.dart';
 import 'public_chat/public_chat_page.dart';
 import 'settings/settings_page.dart';
@@ -11,10 +11,12 @@ class BaseScaffold extends StatelessWidget {
     super.key,
     this.body,
     this.title,
+    this.fab,
   });
 
   final Widget? body;
   final String? title;
+  final FloatingActionButton? fab;
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +43,12 @@ class BaseScaffold extends StatelessWidget {
               child: const Text('Flostr'),
             ),
             ListTile(
-              selected: route == HomePage.route,
+              selected: route == ChatsPage.route,
               leading: const Icon(Icons.chat),
               title: const Text('Chats'),
               onTap: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).pushReplacementNamed(HomePage.route);
+                Navigator.of(context).pushReplacementNamed(ChatsPage.route);
               },
             ),
             ListTile(
@@ -80,6 +82,7 @@ class BaseScaffold extends StatelessWidget {
         ),
       ),
       body: body,
+      floatingActionButton: fab,
     );
   }
 }

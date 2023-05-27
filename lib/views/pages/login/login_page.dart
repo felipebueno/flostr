@@ -1,4 +1,4 @@
-import 'package:flostr/views/pages/home/home_page.dart';
+import 'package:flostr/views/pages/chats/chats_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:nostr/nostr.dart';
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                 );
 
                 // TODO: Don't use build context across async gaps
-                Navigator.of(context).pushReplacementNamed(HomePage.route);
+                Navigator.of(context).pushReplacementNamed(ChatsPage.route);
               },
               child: const Text('Login'),
             ),
