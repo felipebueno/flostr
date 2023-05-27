@@ -73,13 +73,21 @@ class TheWallState extends State<TweetWall> {
           return const Center(child: CircularProgressIndicator());
         }
 
-        Message msg = Message.deserialize(snapshot.data);
-        if (msg.type == "EVENT") {
-          Event event = msg.message;
-          if (!isSpam(event)) {
-            _events.add(event);
-            _events.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+        try {
+          Message msg = Message.deserialize(snapshot.data);
+          if (msg.type == "EVENT") {
+            Event event = msg.message;
+            if (!isSpam(event)) {
+              _events.add(event);
+              _events.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+            }
           }
+        } catch (e, st) {
+          // TODO: Do something when the Event is invalid
+          debugPrintStack(
+            stackTrace: st,
+            label: 'Invalid Event',
+          );
         }
         // debugPrint(
         //   'events loaded: ${_events.length} spams filtered: ${spams.length}',
