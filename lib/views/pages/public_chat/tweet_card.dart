@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class TweetCard extends StatelessWidget {
@@ -44,20 +45,11 @@ class TweetCard extends StatelessWidget {
                 height: 46,
                 margin: const EdgeInsets.all(10.0),
                 child: InkWell(
-                  child: ClipOval(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Color(_getColor()),
-                      ),
-                      // child: Image.network(
-                      //   avatar,
-                      //   fit: BoxFit.contain,
-                      //   errorBuilder: (context, error, stackTrace) {
-                      //     debugPrint(error.toString());
-                      //     return const SizedBox.shrink();
-                      //   },
-                      // ),
+                  child: CircleAvatar(
+                    backgroundColor: Color(
+                      int.parse('0XFF${pubkey.substring(0, 6)}'),
                     ),
+                    backgroundImage: CachedNetworkImageProvider(avatar),
                   ),
                   onTap: () {
                     // print('pubkey: $pubkey');

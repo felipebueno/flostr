@@ -90,11 +90,13 @@ class TheWallState extends State<TweetWall> {
           shrinkWrap: true,
           itemCount: _events.length,
           itemBuilder: (context, index) {
+            final event = _events[index];
+
             return TweetCard(
-              avatar: '',
-              pubkey: _events[index].pubkey,
-              timestamp: _events[index].createdAt,
-              text: _events[index].content,
+              avatar: 'https://robohash.org/${event.pubkey}?size=64x64',
+              pubkey: event.pubkey,
+              timestamp: event.createdAt,
+              text: event.content,
             );
           },
         );

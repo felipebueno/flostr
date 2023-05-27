@@ -73,7 +73,12 @@ class _ChatsPageState extends State<ChatsPage> {
   @override
   Widget build(BuildContext context) {
     return BaseScaffold(
-      body: ChatList(_profiles),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await Future.delayed(const Duration(seconds: 2));
+        },
+        child: ChatList(_profiles),
+      ),
       fab: FloatingActionButton.extended(
         onPressed: () {
           setState(() {

@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flostr',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0XFFF2A900)),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
       onGenerateRoute: (RouteSettings routeSettings) => MaterialPageRoute(

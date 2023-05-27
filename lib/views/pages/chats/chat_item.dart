@@ -15,9 +15,9 @@ class ChatItem extends StatelessWidget {
           content: Text(profile.toString()),
         );
 
-        final sm = ScaffoldMessenger.of(context);
-        sm.hideCurrentSnackBar();
-        sm.showSnackBar(snackBar);
+        final messenger = ScaffoldMessenger.of(context);
+        messenger.hideCurrentSnackBar();
+        messenger.showSnackBar(snackBar);
       },
       leading: CircleAvatar(
         backgroundColor: Color(
@@ -26,7 +26,11 @@ class ChatItem extends StatelessWidget {
         backgroundImage: CachedNetworkImageProvider(profile.picture!),
       ),
       title: Text(profile.displayName!),
-      subtitle: Text(profile.about!),
+      subtitle: Text(
+        profile.about!,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
     );
   }
 }

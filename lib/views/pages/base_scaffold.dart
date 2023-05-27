@@ -48,7 +48,7 @@ class BaseScaffold extends StatelessWidget {
               title: const Text('Chats'),
               onTap: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).pushReplacementNamed(ChatsPage.route);
+                Navigator.of(context).pushNamed(ChatsPage.route);
               },
             ),
             ListTile(
@@ -57,8 +57,7 @@ class BaseScaffold extends StatelessWidget {
               title: const Text('Pulic Wall'),
               onTap: () {
                 Navigator.of(context).pop();
-                Navigator.of(context)
-                    .pushReplacementNamed(PublicChatPage.route);
+                Navigator.of(context).pushNamed(PublicChatPage.route);
               },
             ),
             ListTile(
@@ -66,7 +65,7 @@ class BaseScaffold extends StatelessWidget {
               title: const Text('Settings'),
               onTap: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).pushReplacementNamed(SettingsPage.route);
+                Navigator.of(context).pushNamed(SettingsPage.route);
               },
             ),
             ListTile(
