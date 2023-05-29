@@ -40,7 +40,7 @@ class TheWallState extends State<TweetWall> {
         generate64RandomHexChars(),
         [
           Filter(
-            kinds: [3],
+            kinds: [1],
             since: currentUnixTimestampSeconds() - 86400,
           )
         ],

@@ -1,3 +1,4 @@
+import 'package:flostr/utils/consts.dart';
 import 'package:flostr/utils/nav.dart';
 import 'package:flostr/views/pages/chats/chats_page.dart';
 import 'package:flostr/views/pages/login/login_page.dart';
@@ -23,7 +24,9 @@ class _SplashPageState extends State<SplashPage> {
       return;
     }
 
-    pushReplacementNamed(ChatsPage.route);
+    String? r = await const FlutterSecureStorage().read(key: savedRoute);
+
+    pushReplacementNamed(r ?? ChatsPage.route);
   }
 
   @override
