@@ -12,7 +12,7 @@ Currently, it's just a collection of code intended for learning and experimentin
 
 why: Because the dotcom domain was available 😅
 
-what: I haven't decided what it means yet but my first though was the combination of Flutter with Nostr. While I find that option appealing but I also thought of FLOSS + Nostr (FLOSS = Free Libre Open-Source Software) which I personally find even more appealing.
+what: I haven't decided what it means yet but my first though was the combination of Flutter with Nostr. While I find that option appealing I also thought of FLOSS + Nostr (FLOSS = Free Libre Open-Source Software) which I personally find even more appealing.
 
 ### Why u no screenshots?
 
