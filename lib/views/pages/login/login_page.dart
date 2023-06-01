@@ -67,6 +67,10 @@ class _LoginPageState extends State<LoginPage> {
 
                 // TODO: Validate keys before saving
 
+                // TODO: Get profile details from relay
+
+                // TODO: Get public key from typed/pasted private key
+
                 await const FlutterSecureStorage().write(
                   key: privKey,
                   value: pk,

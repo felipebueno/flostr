@@ -74,18 +74,17 @@ class TheWallState extends State<TweetWall> {
             }
           }
         } catch (e, st) {
-          // TODO: Do something when the Event is invalid
+          // TODO: Do something with innvalid events
           debugPrintStack(
             stackTrace: st,
             label: 'Invalid Event',
           );
         }
-        // debugPrint(
-        //   'events loaded: ${_events.length} spams filtered: ${spams.length}',
-        // );
+        debugPrint(
+          'events loaded: ${_events.length} spams filtered: ${_spams.length}',
+        );
 
         return ListView.builder(
-          reverse: true,
           shrinkWrap: true,
           itemCount: _events.length,
           itemBuilder: (context, index) {

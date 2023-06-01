@@ -1,12 +1,22 @@
 import 'package:flostr/views/pages/chats/chats_page.dart';
 import 'package:flostr/views/pages/login/login_page.dart';
 import 'package:flostr/views/pages/public_chat/public_chat_page.dart';
+import 'package:flostr/views/pages/settings/settings_viewmodel.dart';
 import 'package:flostr/views/pages/splash/splash_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 import 'views/pages/settings/settings_page.dart';
 
+final locator = GetIt.instance;
+
+void _setupLocator() {
+  locator.registerFactory(SettingsViewModel.new);
+}
+
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  _setupLocator();
   runApp(const FlostrApp());
 }
 
