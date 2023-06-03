@@ -33,6 +33,22 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 32),
             TextField(
               controller: _privkeyController,
+              onChanged: (value) {
+                if (value.length != 64) {
+                  setState(() {
+                    _pubkeyController.text = '';
+                  });
+
+                  return;
+                }
+
+                final encodedPublicKey =
+                    Nip19.encodePubkey(Keychain(value).public);
+
+                setState(() {
+                  _pubkeyController.text = encodedPublicKey;
+                });
+              },
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Private Key',
@@ -59,21 +75,26 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 32),
             ElevatedButton.icon(
               onPressed: () async {
+                if (_privkeyController.text.isEmpty ||
+                    _pubkeyController.text.isEmpty) {
+                  return;
+                }
+
                 final pk = _privkeyController.text;
 
                 if (pk.isEmpty) {
                   return;
                 }
 
+                final privateKey = Nip19.encodePrivkey(pk);
+
                 // TODO: Validate keys before saving
 
                 // TODO: Get profile details from relay
 
-                // TODO: Get public key from typed/pasted private key
-
                 await const FlutterSecureStorage().write(
                   key: privKey,
-                  value: pk,
+                  value: privateKey,
                 );
                 await const FlutterSecureStorage().write(
                   key: pubKey,

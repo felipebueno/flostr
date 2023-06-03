@@ -5,7 +5,7 @@ final class Profile {
   final String? name;
   final String? about;
   final String? nip05;
-  final String? nip05valid;
+  final bool? nip05valid;
   final String? lud16;
   final String? username;
   final String? displayName;
@@ -32,7 +32,7 @@ final class Profile {
         name = json['name'],
         about = json['about'],
         nip05 = json['nip05'],
-        nip05valid = json['nip05valid'],
+        nip05valid = json['nip05valid'] == true || json['nip05valid'] == 'true',
         lud16 = json['lud16'],
         username = json['username'],
         displayName = json['displayName'] ?? json['display_name'],

@@ -4,8 +4,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'chats/chats_page.dart';
 import 'login/login_page.dart';
+import 'profile/profile_page.dart';
 import 'public_chat/public_chat_page.dart';
-import 'settings/settings_page.dart';
 
 class BaseScaffold extends StatelessWidget {
   const BaseScaffold({
@@ -68,10 +68,10 @@ class BaseScaffold extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
+              leading: const Icon(Icons.person),
+              title: const Text('Profile'),
               onTap: () {
-                popAndPushNamed(SettingsPage.route);
+                popAndPushNamed(ProfilePage.route);
               },
             ),
             ListTile(
