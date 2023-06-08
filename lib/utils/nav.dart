@@ -14,7 +14,7 @@ Future<void> pushReplacementNamed(String routeName) async {
   await Navigator.of(context).pushReplacementNamed(routeName);
 }
 
-Future<void> popAndPushNamed(String routeName) async {
+Future<void> popAndPushReplacementNamed(String routeName) async {
   final context = FlostrApp.navigatorKey.currentState?.context;
 
   if (context == null) {
@@ -22,7 +22,7 @@ Future<void> popAndPushNamed(String routeName) async {
   }
 
   Navigator.of(context).pop();
-  pushNamed(routeName);
+  pushReplacementNamed(routeName);
 }
 
 Future<void> pushNamed(String routeName) async {
@@ -33,5 +33,6 @@ Future<void> pushNamed(String routeName) async {
   }
 
   await const FlutterSecureStorage().write(key: savedRoute, value: routeName);
-  await Navigator.of(context).pushNamed(routeName);
+
+  if (context.mounted) await Navigator.of(context).pushNamed(routeName);
 }

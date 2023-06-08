@@ -37,7 +37,7 @@ class _SendMessageState extends State<SendMessage> {
       kind: 1,
       tags: [],
       content: text,
-      privkey: pk,
+      privkey: Nip19.decodePrivkey(pk),
     );
 
     // Send an event to the WebSocket server

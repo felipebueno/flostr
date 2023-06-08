@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flostr/data/models/profile.dart' as local_profile;
 import 'package:flostr/views/base_view.dart';
 import 'package:flostr/views/pages/base_scaffold.dart';
+import 'package:flostr/views/pages/profile/profile_form.dart';
 import 'package:flostr/views/pages/profile/profile_viewmodel.dart';
 import 'package:flutter/material.dart';
 
@@ -38,14 +39,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   if (profile.picture != null)
                     CircleAvatar(
-                      // backgroundColor: Color(
-                      //   int.parse('0XFF${profile.pubkey?.substring(0, 6)}'),
-                      // ),
                       backgroundImage: CachedNetworkImageProvider(
                         profile.picture!,
                       ),
                     ),
                   Text(profile.toString()),
+                  Expanded(child: ProfileForm(profile)),
                 ],
               );
             },

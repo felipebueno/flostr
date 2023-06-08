@@ -56,7 +56,7 @@ class BaseScaffold extends StatelessWidget {
               leading: const Icon(Icons.chat),
               title: const Text('Chats'),
               onTap: () {
-                popAndPushNamed(ChatsPage.route);
+                popAndPushReplacementNamed(ChatsPage.route);
               },
             ),
             ListTile(
@@ -64,14 +64,14 @@ class BaseScaffold extends StatelessWidget {
               leading: const Icon(Icons.people),
               title: const Text('Pulic Wall'),
               onTap: () {
-                popAndPushNamed(PublicChatPage.route);
+                popAndPushReplacementNamed(PublicChatPage.route);
               },
             ),
             ListTile(
               leading: const Icon(Icons.person),
               title: const Text('Profile'),
               onTap: () {
-                popAndPushNamed(ProfilePage.route);
+                popAndPushReplacementNamed(ProfilePage.route);
               },
             ),
             ListTile(

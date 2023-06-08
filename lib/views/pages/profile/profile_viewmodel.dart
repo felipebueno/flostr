@@ -23,6 +23,30 @@ class ProfileViewModel extends BaseViewModel {
       .map((event) => jsonDecode(event.content))
       .map((content) => local_profile.Profile.fromJson(content));
 
+  Future<void> updateProfile(local_profile.Profile profile) async {
+    debugPrint('Saving profile $profile');
+    final pk = await const FlutterSecureStorage().read(key: 'private-key');
+
+    if (pk == null) {
+      errorSnack('No private key found');
+
+      return;
+    }
+
+    // Instantiate an event with a partial data and let the library sign the event with your private key
+    Event event = Event.from(
+      kind: 0,
+      tags: [],
+      content: jsonEncode(profile.toJson()),
+      privkey: Nip19.decodePrivkey(pk),
+    );
+
+    // Send an event to the WebSocket server
+    channel?.sink.add(event.serialize());
+
+    //  channel?.sink
+  }
+
   @override
   void dispose() {
     channel?.sink.close();
@@ -31,6 +55,7 @@ class ProfileViewModel extends BaseViewModel {
 
   @override
   Future<void> init() async {
+    // TODO: Move to a service
     channel = WebSocketChannel.connect(Uri.parse('wss://relay.damus.io'));
     final encodedKey = await const FlutterSecureStorage().read(key: pubKey);
     if (encodedKey == null) {
@@ -52,9 +77,9 @@ class ProfileViewModel extends BaseViewModel {
           Filter(
             kinds: [
               0,
-              2,
-              10002,
-              3,
+              // 2,
+              // 10002,
+              // 3,
             ],
             authors: [decodedKey],
           ),
