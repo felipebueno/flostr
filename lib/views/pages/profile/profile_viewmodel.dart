@@ -25,6 +25,7 @@ class ProfileViewModel extends BaseViewModel {
       .map((content) => local_profile.Profile.fromJson(content));
 
   Future<void> updateProfile(local_profile.Profile profile) async {
+    // TODO: Clean this fn up. Move socket connections to a service
     debugPrint('Saving profile $profile');
     final pk = await const FlutterSecureStorage().read(key: 'private-key');
 
@@ -34,7 +35,7 @@ class ProfileViewModel extends BaseViewModel {
       return;
     }
 
-    // TODO: Clean this up. Move socket connections to a service
+    // TODO: Understand why saving through the WebSocketChannel doesn't work
     // Instantiate an event with a partial data and let the library sign the event with your private key
     // Event event = Event.from(
     //   kind: 0,
@@ -46,6 +47,7 @@ class ProfileViewModel extends BaseViewModel {
     // Send an event to the WebSocket server
     // channel?.sink.add(event.serialize());
 
+    // TODO: dart.io doesn't work on web. Use WebSocketChannel instead
     final socket = await WebSocket.connect('wss://relay.damus.io');
 
     socket.listen((rawEvent) {
