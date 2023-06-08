@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flostr/data/models/profile.dart' as local_profile;
 import 'package:flostr/utils/alerts.dart';
@@ -33,7 +34,25 @@ class ProfileViewModel extends BaseViewModel {
       return;
     }
 
+    // TODO: Clean this up. Move socket connections to a service
     // Instantiate an event with a partial data and let the library sign the event with your private key
+    // Event event = Event.from(
+    //   kind: 0,
+    //   tags: [],
+    //   content: jsonEncode(profile.toJson()),
+    //   privkey: Nip19.decodePrivkey(pk),
+    // );
+
+    // Send an event to the WebSocket server
+    // channel?.sink.add(event.serialize());
+
+    final socket = await WebSocket.connect('wss://relay.damus.io');
+
+    socket.listen((rawEvent) {
+      // Print the PGP encrypted message here
+      print(rawEvent);
+    });
+
     Event event = Event.from(
       kind: 0,
       tags: [],
@@ -41,10 +60,8 @@ class ProfileViewModel extends BaseViewModel {
       privkey: Nip19.decodePrivkey(pk),
     );
 
-    // Send an event to the WebSocket server
-    channel?.sink.add(event.serialize());
-
-    //  channel?.sink
+    socket.add(event.serialize());
+    await socket.close();
   }
 
   @override
