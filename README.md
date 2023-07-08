@@ -1,4 +1,4 @@
-This project is on hold while I'm workin on a native Stacker News client.
+This project is on hold while I'm working on a native Stacker News client.
 
 # Flostr
 
